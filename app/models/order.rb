@@ -8,7 +8,7 @@ class Order < ActiveRecord::Base
 			order = Order.create :ip => tip
 		end
 
-		return if 0 == tid && 0 == mfood && 0 == vfood
+		return 0 if 0 == tid && 0 == mfood && 0 == vfood
 
 		menu = Menu.where(:id => tid).first
 		if menu.present?
@@ -18,7 +18,7 @@ class Order < ActiveRecord::Base
 			order.is_box = menu.is_box
 			order.updated_at = Time.now
 			order.save
-			return
+			return 1
 		end
 
 		if mfood > 0
@@ -44,6 +44,7 @@ class Order < ActiveRecord::Base
 			end
 		end
 		order.save
+		return 1
 	end
 
 

@@ -38,6 +38,11 @@ class MenuController < ApplicationController
   	redirect_to :root
 	end
 
+  def ajax_select
+    result = Order.chose(@remote_ip,params[:id].to_i,params[:mfood].to_i,params[:vfood].to_i)
+    render :json => result
+  end
+
 
   def delete
   	Menu.where(:id => params[:id].to_i).first.delete

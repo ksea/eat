@@ -8,7 +8,10 @@ Eat::Application.routes.draw do
   match 'update'   	=> 'menu#update',  :via => [:get,:post]
   match 'delete'   	=> 'menu#delete',  :via => [:get,:post]
   match 'food_delete'   	=> 'menu#food_delete',  :via => [:get,:post]
+  
   match 'select'		=> 'menu#select',  :via => [:get,:post]
+  match 'ajax_select'		=> 'menu#ajax_select',  :via => [:get,:post]
+  
   match 'look'			=> 'menu#look',  :via => [:get,:post]
   match 'say'				=> 'menu#say',  :via => [:get,:post]
 

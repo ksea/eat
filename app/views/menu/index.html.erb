@@ -92,15 +92,52 @@
     if($(this).hasClass('chosed')){
       return
     }
-    self.location='select?id='+$(this).attr('id');
+    tobj = this;
+    // self.location='select?id='+$(this).attr('id');
+    $.ajax({
+      url: 'ajax_select',
+      data: 'id='+$(this).attr('id'),
+      async: false,
+      success: function(data){
+        if (data == 1){
+           $('.chosed').removeClass('chosed');
+           $('#chosed').remove();
+           $('.ok').removeClass('ok');
+           $(tobj).addClass('chosed');
+           $(tobj).append("<div id='chosed'></div>");
+        }
+      }
+    });
+
   });
 
   $('.mv>ul.redio>li').click(function(){
     if ($(this).hasClass('ok')){
       return 
     }
-
-    self.location='select?'+$(this).attr('class')+'='+$(this).attr('id');
+    tobj = this;
+    // self.location='select?'+$(this).attr('class')+'='+$(this).attr('id');
+    $.ajax({
+      url: 'ajax_select',
+      data: $(this).attr('class')+'='+$(this).attr('id'),
+      async: false,
+      success: function(data){
+        if (data == 1){
+          if ($(tobj).parents('.chose-one').hasClass('chosed')){
+            $(tobj).siblings('.ok').removeClass('ok');
+            $(tobj).addClass('ok');
+          }else{
+            $('.chosed').removeClass('chosed');
+            $('#chosed').remove();
+            $('.ok').removeClass('ok');
+            $(tobj).addClass('ok');
+            $(tobj).parents('.chose-one').addClass('chosed');
+            $(tobj).parents('.chose-one').append("<div id='chosed'></div>");
+          }
+           
+        }
+      }
+    });
   });
 
 </script>
