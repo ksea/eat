@@ -1,0 +1,40 @@
+<div id="content">
+
+
+  <div id='iam' class='noPrint'>
+    当前检测IP为：<%=@remote_ip%>，掐指一算，你是<span><%=IPADDRESS[@remote_ip] || '...恩，不知道'%></span>
+    <% if @isadmin %>
+      ，我觉得你应该可以<a href='edit'>管理菜单</a>
+      ，还可以<a href='javascript:window.print();'>打印列表</a>
+    <% end %>
+    ，<a href='/'>返回</a>
+  </div>
+
+  <% @menus.map do |menu| %>
+	  <div class='list_one'>
+	  	<div class='list_title'>
+	  		<%=menu.name %>
+	  	</div>
+	  	<div class='list_chose'>
+	  		<div class='chose_count'>
+	  			共 <%=@order_arr[menu.id].size%> 人
+	  		</div>
+	  		<div class='chose_detail'>
+		  		<% @order_arr[menu.id].map do |oa| %>
+	  				<span><%='(' + oa.ip + ')' %><%=IPADDRESS[oa.ip] || '无记录姓名' %></span>
+		  			
+		  			<% unless oa.is_box %>
+		  				<span class='foods'>[
+		  				<%=@food_names[oa.mfood] unless oa.mfood.to_i.zero? %>
+		  				<%=@food_names[oa.vfood] unless oa.vfood.to_i.zero? %>
+		  				]</span>
+		  			<% end %>
+	  				
+	  				<span class='desc'><%='('+oa.desc+')' unless oa.desc.blank? %></span>
+	  				<br/>
+		  		<% end %>
+	  		</div>
+	  	</div>
+	  </div>
+  <% end %>
+</div>

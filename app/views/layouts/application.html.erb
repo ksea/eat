@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Eat</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= stylesheet_link_tag    "jquery.fancybox-1.3.4", :media => "all" %>
+  <%= javascript_include_tag "jquery.min" %>
+  <%= javascript_include_tag "jquery.fancybox" %>
+  <%= csrf_meta_tags %>
+</head>
+<style media='print'> 
+	.noPrint{display:none;} 
+</style>
+<body>
+	<div id="page"></div>
+	<div id="header">
+		<div id="header-main">
+			<span>抢饭啦</span>
+		</div>
+	</div>
+	
+	<div id="main">
+		<%= yield %>
+
+		<div id="footer" class='noPrint'>
+			<span>本系统歧视IE6,IE7核心的浏览器，谢谢</span>
+		</div>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+tmp/*
+tmp/pids/*
+vendor/assets/*
+vendor/plugins/.gitkeep
+test/*
+test/fixtures/.gitkeep
+test/functional/.gitkeep
+test/integration/.gitkeep
+test/performance/browsing_test.rb
+test/test_helper.rb
+log/.gitkeep
+log/development.log
+lib/assets/.gitkeep
+lib/tasks/.gitkeep
+doc/README_FOR_APP
+const/ipaddress.rb
+config/database.yml

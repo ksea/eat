@@ -1,0 +1,106 @@
+<div id="content">
+
+
+  <div id='iam'>
+    当前检测IP为：<%=@remote_ip%>，掐指一算，你是<span><%=IPADDRESS[@remote_ip] || '...恩，不知道'%></span>
+    <% if @isadmin %>
+      ，我觉得你应该可以<a href='/edit'>管理菜单</a>
+    <% end %>
+    ，可以看其他人选择的<a href='/look'>什么情况</a>
+  </div>
+  
+  <!-- <div>你今天选择的是</div>
+
+  <div class='ps'>
+    <span>对娟娟说: </span>
+    <input name='ps' value='' placeholder="点击输入"></input>
+  </div> -->
+
+  <div class="combination">
+    <div class="sort">套餐盒饭</div>
+    <% @lunchboxs.map do |lb| %>
+      <div class="one one_base <%= "chosed"if lb.id == @today.menu_id %> " id='<%=lb.id%>'>
+        <div class='lunchbox_name'><%= "#{lb.name}" %></div>
+        <div class='lunchbox_desc'><%= "#{lb.desc}" %></div>
+        <% if lb.id == @today.menu_id %>
+          <div id='chosed'></div>
+        <% end %>
+      </div>
+    <% end %>
+
+    
+  </div>
+
+  <div class="combination">
+    <div class="sort">自选组合</div>
+    <% @foods.map do |f| %>
+      <div class='chose-one <%= "chosed"if f.id == @today.menu_id %> '>
+        <div class='sure hide' id='<%= f.id %>'>确定</div>
+        <div class='til'><%= f.name %><span><%= f.desc %></span></div>
+        <div class='mv'>
+          <div class='mv-sort'>荤菜</div>
+          <ul class='redio'>
+            <% f[:mfoods].map do |mf| %>
+              <li id='<%= mf.id %>' class='mfood<%= " ok" if mf.id == @today.mfood %>'><%= mf.name %></li>
+            <% end %>
+          </ul>
+        </div>
+        <div class='mv'>
+          <div class='mv-sort'>素菜</div>
+          <ul class='redio'>
+            <% f[:vfoods].map do |vf| %>
+              <li id='<%= vf.id %>' class='vfood<%= " ok" if vf.id == @today.vfood %>'><%= vf.name %></li>
+            <% end %>
+          </ul>
+        </div>
+        <% if f.id == @today.menu_id %>
+          <div id='chosed'></div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <% unless @today.menu_id.blank? %>
+    <div class="combination">
+      <div class="sort">还可以</div>
+      <div class='ps'>
+        <span>对娟娟说: </span>
+        <form action="say" method="post">
+          <input name='desc' value='<%= @today.desc %>' placeholder="点击输入,注意字数 40字"></input>
+          <input type="submit" value='确定'></input>
+        </form>
+      </div>
+    </div>
+  <% end %>
+  
+</div>
+<script type="text/javascript">
+  $(".one").mouseover(function(){
+    if($(this).hasClass('chosed')){
+      return
+    }
+
+    $(this).addClass('one_hover');
+    $(this).removeClass('one_base');
+  });
+  $(".one").mouseout(function(){
+    $(this).addClass('one_base');
+    $(this).removeClass('one_hover');
+  });
+  
+  $('.one').click(function(){
+    if($(this).hasClass('chosed')){
+      return
+    }
+    self.location='select?id='+$(this).attr('id');
+  });
+
+  $('.mv>ul.redio>li').click(function(){
+    if ($(this).hasClass('ok')){
+      return 
+    }
+
+    self.location='select?'+$(this).attr('class')+'='+$(this).attr('id');
+  });
+
+</script>
