@@ -59,19 +59,17 @@
       </div>
     <% end %>
   </div>
-
-  <% unless @today.menu_id.blank? %>
-    <div class="combination">
-      <div class="sort">还可以</div>
-      <div class='ps'>
-        <span>对娟娟说: </span>
-        <form action="say" method="post">
-          <input name='desc' value='<%= @today.desc %>' placeholder="点击输入,注意字数 40字"></input>
-          <input type="submit" value='确定'></input>
-        </form>
-      </div>
+  
+  <div class="combination <%='hide' if @today.menu_id.blank? %>" id='isay'>
+    <div class="sort">还可以</div>
+    <div class='ps'>
+      <span>对娟娟说: </span>
+      <form action="say" method="post">
+        <input name='desc' value='<%= @today.desc %>' placeholder="点击输入,注意字数 40字"></input>
+        <input type="submit" value='确定'></input>
+      </form>
     </div>
-  <% end %>
+  </div>
   
 </div>
 <script type="text/javascript">
@@ -105,6 +103,7 @@
            $('.ok').removeClass('ok');
            $(tobj).addClass('chosed');
            $(tobj).append("<div id='chosed'></div>");
+           $('#isay').show();
         }
       }
     });
@@ -134,7 +133,7 @@
             $(tobj).parents('.chose-one').addClass('chosed');
             $(tobj).parents('.chose-one').append("<div id='chosed'></div>");
           }
-           
+          $('#isay').show();
         }
       }
     });
